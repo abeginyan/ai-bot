@@ -5,6 +5,8 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . ./
+ARG VITE_RAG_URL
+ENV VITE_RAG_URL=$VITE_RAG_URL
 RUN npm run build
 
 FROM nginx:alpine AS runtime

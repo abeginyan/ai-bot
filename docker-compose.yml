@@ -1,21 +1,30 @@
 services:
-  backend:
-    build: ./backend
-    container_name: ai_bot_backend
-    ports:
-      - "8080:8080"
+  rag-service:
+    build: ./rag-service
+    container_name: ai_bot_rag
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - KNOWLEDGE_BASE_DIR=/knowledge_base
+      - EMBEDDING_MODEL=BAAI/bge-m3
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o-mini}
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:5173
+    volumes:
+      - ./knowledge_base:/knowledge_base:ro
+    ports:
+      - "8000:8000"
     networks:
       - ai_bot
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        VITE_RAG_URL: http://localhost:8000
     container_name: ai_bot_frontend
     ports:
       - "3000:80"
     depends_on:
-      - backend
+      - rag-service
     networks:
       - ai_bot
 

@@ -1,9 +1,3 @@
-# .NET
-bin/
-obj/
-*.user
-.vs/
-
 # Node / frontend
 node_modules/
 dist/
@@ -12,4 +6,13 @@ npm-debug.log*
 
 # Env
 *.env
+.env
+!.env.example
 .DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+/.vs
