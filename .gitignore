@@ -1,0 +1,15 @@
+# .NET
+bin/
+obj/
+*.user
+.vs/
+
+# Node / frontend
+node_modules/
+dist/
+npm-debug.log*
+*.tsbuildinfo
+
+# Env
+*.env
+.DS_Store
